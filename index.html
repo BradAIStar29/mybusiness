@@ -1,6 +1,118 @@
 <!DOCTYPE html>
-<html>
-  <body>
-    <h1>Hello from my business!</h1>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BMAIProductions — Premium Digital Assets</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Custom Tailwind Colors -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: '#0D1B2A',
+            gold: '#C9A84C',
+            midgray: '#444444',
+            lightgray: '#888888',
+            cream: '#F7F3EC',
+          },
+          fontFamily: {
+            serif: ['Playfair Display', 'serif'],
+            sans: ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fadeIn {
+      animation: fadeIn 1.2s ease-out forwards;
+    }
+  </style>
+</head>
+
+<body class="bg-cream font-sans">
+
+  <!-- HERO SECTION -->
+  <section class="min-h-screen bg-navy flex items-center justify-center px-6">
+    <div class="text-center max-w-3xl animate-fadeIn">
+
+      <h1 class="text-5xl md:text-6xl font-serif text-cream mb-6 leading-tight">
+        Create Digital Assets That Stand Out.
+      </h1>
+
+      <p class="text-lightgray text-lg md:text-xl mb-10">
+        Premium ebooks, audiobooks, templates, guides, and visual assets crafted 
+        with precision, creativity, and brand‑aligned excellence.
+      </p>
+
+      <div class="flex flex-col md:flex-row items-center justify-center gap-4">
+        <a href="#features"
+           class="bg-gold text-navy font-semibold px-8 py-4 rounded-lg shadow-md hover:opacity-90 transition">
+          Start Creating
+        </a>
+
+        <a href="#collection"
+           class="text-cream hover:text-gold transition">
+          Explore the Collection
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FEATURES SECTION -->
+  <section id="features" class="py-20 bg-cream px-6">
+    <h2 class="text-4xl font-serif text-navy text-center mb-12">What We Create</h2>
+
+    <div class="grid md:grid-cols-3 gap-10 max-w-6xl mx-auto">
+
+      <div class="p-8 bg-white shadow rounded-lg border border-lightgray">
+        <h3 class="text-2xl font-serif text-navy mb-4">Ebooks & Workbooks</h3>
+        <p class="text-midgray">Professionally formatted, visually stunning, ready to publish.</p>
+      </div>
+
+      <div class="p-8 bg-white shadow rounded-lg border border-lightgray">
+        <h3 class="text-2xl font-serif text-navy mb-4">Audiobooks</h3>
+        <p class="text-midgray">Narrated, edited, and mastered for premium listening experiences.</p>
+      </div>
+
+      <div class="p-8 bg-white shadow rounded-lg border border-lightgray">
+        <h3 class="text-2xl font-serif text-navy mb-4">Templates</h3>
+        <p class="text-midgray">Business, productivity, and design templates that elevate your brand.</p>
+      </div>
+
+      <div class="p-8 bg-white shadow rounded-lg border border-lightgray">
+        <h3 class="text-2xl font-serif text-navy mb-4">Guides & Toolkits</h3>
+        <p class="text-midgray">High‑value, niche‑specific guides built for impact.</p>
+      </div>
+
+      <div class="p-8 bg-white shadow rounded-lg border border-lightgray">
+        <h3 class="text-2xl font-serif text-navy mb-4">Images & Visual Packs</h3>
+        <p class="text-midgray">Curated, AI‑enhanced visuals for creators and brands.</p>
+      </div>
+
+      <div class="p-8 bg-white shadow rounded-lg border border-lightgray">
+        <h3 class="text-2xl font-serif text-navy mb-4">Custom Digital Assets</h3>
+        <p class="text-midgray">Tailored to your brand’s voice, style, and goals.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-navy text-lightgray py-10 text-center">
+    <p>BMAIProductions © 2026 — All Rights Reserved</p>
+  </footer>
+
+</body>
 </html>
