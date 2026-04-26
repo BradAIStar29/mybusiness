@@ -275,8 +275,8 @@
       </button>
 
       <div id="results" class="mt-10 hidden">
-        <h3 class="text-3xl font-serif text-navy mb-6">
-          Suggested Assets
+       <h3 class="text-3xl font-serif text-navy mb-6">
+  Your Asset Blueprint
         </h3>
 
         <div class="grid md:grid-cols-3 gap-6">
@@ -411,16 +411,16 @@
     document.getElementById("results").classList.remove("hidden");
 
     document.getElementById("ebookResult").innerText =
-      `Create a beginner-friendly guide called “The Practical Guide to ${idea}.” Include checklists, templates, and step-by-step exercises.`;
+      `Create a practical ebook called “The ${idea} Playbook.” Include a beginner-friendly intro, 5 core chapters, worksheets, checklists, and a 7-day action plan.`;
 
     document.getElementById("videoResult").innerText =
-      `Build a YouTube content series around ${idea}, including explainer videos, tutorials, mistakes to avoid, and quick tips.`;
+      `Create a YouTube series called “${idea} Made Simple.” Start with 5 videos: beginner mistakes, step-by-step tutorial, tools/resources, real examples, and a quick-start guide.`;
 
     document.getElementById("agentResult").innerText =
-      `Create a chatbot or AI assistant that helps users make decisions, answer questions, and generate personalized plans related to ${idea}.`;
+      `Build an AI assistant that helps users with ${idea}. It should answer questions, recommend next steps, generate personalized plans, and suggest useful resources.`;
 
     document.getElementById("moneyResult").innerText =
-      `Start with a free guide to grow an email list, then sell a premium ebook, workbook, template pack, or AI-powered tool for people interested in ${idea}.`;
+      `Best path: offer a free mini-guide first, collect emails, then sell a premium ebook, workbook, template pack, audiobook, or AI chatbot related to ${idea}.`;
   }
 </script>
 </body>
