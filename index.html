@@ -66,6 +66,10 @@
            class="text-cream hover:text-gold transition">
           Follow the Journey
         </a>
+        <a href="#asset-generator"
+   class="text-cream hover:text-gold transition">
+  Try the Asset Generator
+</a>
       </div>
     </div>
   </section>
@@ -234,7 +238,76 @@
       </a>
     </div>
   </section>
+<!-- ASSET GENERATOR -->
+<section id="asset-generator" class="py-20 bg-white px-6">
+  <div class="max-w-5xl mx-auto">
 
+    <div class="text-center mb-12">
+      <p class="text-gold font-semibold tracking-wide uppercase mb-4">
+        Interactive Lab
+      </p>
+
+      <h2 class="text-4xl md:text-5xl font-serif text-navy mb-6">
+        AI Asset Idea Generator
+      </h2>
+
+      <p class="text-midgray text-lg max-w-2xl mx-auto">
+        Enter an idea, niche, audience, or topic. The generator will suggest digital assets you could build from it.
+      </p>
+    </div>
+
+    <div class="bg-cream border border-lightgray/40 rounded-2xl shadow-lg p-8">
+      <label class="block text-navy font-semibold mb-3">
+        What idea do you want to turn into a digital asset?
+      </label>
+
+      <textarea
+        id="ideaInput"
+        rows="4"
+        placeholder="Example: mindfulness for busy moms, beginner budgeting, AI tools for teachers..."
+        class="w-full px-5 py-4 rounded-lg bg-white border border-lightgray/40 text-navy placeholder-lightgray focus:outline-none mb-6"
+      ></textarea>
+
+      <button
+        onclick="generateAssetIdeas()"
+        class="bg-gold text-navy font-semibold px-8 py-4 rounded-lg shadow-md hover:opacity-90 transition">
+        Generate Asset Ideas
+      </button>
+
+      <div id="results" class="mt-10 hidden">
+        <h3 class="text-3xl font-serif text-navy mb-6">
+          Suggested Assets
+        </h3>
+
+        <div class="grid md:grid-cols-3 gap-6">
+
+          <div class="bg-white rounded-xl border border-lightgray/40 p-6 shadow">
+            <h4 class="text-xl font-serif text-navy mb-3">📚 Ebook / Guide</h4>
+            <p id="ebookResult" class="text-midgray"></p>
+          </div>
+
+          <div class="bg-white rounded-xl border border-lightgray/40 p-6 shadow">
+            <h4 class="text-xl font-serif text-navy mb-3">🎥 Video Content</h4>
+            <p id="videoResult" class="text-midgray"></p>
+          </div>
+
+          <div class="bg-white rounded-xl border border-lightgray/40 p-6 shadow">
+            <h4 class="text-xl font-serif text-navy mb-3">🤖 AI Agent</h4>
+            <p id="agentResult" class="text-midgray"></p>
+          </div>
+
+        </div>
+
+        <div class="mt-8 bg-navy rounded-xl p-6">
+          <h4 class="text-2xl font-serif text-cream mb-3">
+            Monetization Angle
+          </h4>
+          <p id="moneyResult" class="text-lightgray"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
   <!-- WAITLIST -->
   <section id="waitlist" class="py-20 bg-cream px-6">
     <div class="max-w-3xl mx-auto text-center">
@@ -326,6 +399,29 @@
   <footer class="bg-navy text-lightgray py-10 text-center">
     <p>BMAIProductions © 2026 — Built as a Digital Asset Lab</p>
   </footer>
+<script>
+  function generateAssetIdeas() {
+    const idea = document.getElementById("ideaInput").value.trim();
 
+    if (!idea) {
+      alert("Please enter an idea first.");
+      return;
+    }
+
+    document.getElementById("results").classList.remove("hidden");
+
+    document.getElementById("ebookResult").innerText =
+      `Create a beginner-friendly guide called “The Practical Guide to ${idea}.” Include checklists, templates, and step-by-step exercises.`;
+
+    document.getElementById("videoResult").innerText =
+      `Build a YouTube content series around ${idea}, including explainer videos, tutorials, mistakes to avoid, and quick tips.`;
+
+    document.getElementById("agentResult").innerText =
+      `Create a chatbot or AI assistant that helps users make decisions, answer questions, and generate personalized plans related to ${idea}.`;
+
+    document.getElementById("moneyResult").innerText =
+      `Start with a free guide to grow an email list, then sell a premium ebook, workbook, template pack, or AI-powered tool for people interested in ${idea}.`;
+  }
+</script>
 </body>
 </html>
