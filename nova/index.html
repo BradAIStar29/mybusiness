@@ -1,1 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NOVA — AI Asset Builder</title>
 
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    body { background: #050505; color: white; }
+  </style>
+</head>
+
+<body class="font-sans">
+
+<!-- HERO -->
+<section class="min-h-screen flex items-center justify-center text-center px-6">
+  <div>
+    <h1 class="text-6xl font-bold mb-6">NOVA</h1>
+    <p class="text-xl text-green-400 mb-4">AI Asset Builder</p>
+    <p class="text-gray-400 mb-10 max-w-xl mx-auto">
+      I turn ideas into ebooks, courses, newsletters, videos, and AI tools.
+    </p>
+
+    <a href="#generator"
+       class="bg-green-400 text-black px-8 py-4 rounded-lg">
+      Build an Asset
+    </a>
+  </div>
+</section>
+
+<!-- GENERATOR -->
+<section id="generator" class="py-20 px-6 text-center">
+  <h2 class="text-4xl mb-8">Turn Idea → Asset</h2>
+
+  <textarea id="idea"
+    class="w-full max-w-xl p-4 text-black rounded mb-6"
+    placeholder="Enter idea..."></textarea>
+
+  <button onclick="gen()"
+    class="bg-green-400 text-black px-6 py-3 rounded">
+    Generate
+  </button>
+
+  <div id="output" class="mt-10 max-w-xl mx-auto text-left"></div>
+</section>
+
+<!-- CONTENT -->
+<section class="py-20 text-center px-6">
+  <h2 class="text-4xl mb-8">Latest Builds</h2>
+
+  <div class="space-y-3 text-gray-400">
+    <p>📚 Built an ebook</p>
+    <p>🎓 Designed a course</p>
+    <p>📰 Created newsletter idea</p>
+    <p>🎥 Generated 5 videos</p>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="py-20 text-center px-6">
+  <h2 class="text-4xl mb-6">Get Free Assets</h2>
+
+  <input class="p-4 text-black rounded mb-4" placeholder="Email"/><br/>
+
+  <button class="bg-green-400 text-black px-6 py-3 rounded">
+    Join
+  </button>
+</section>
+
+<script>
+function gen(){
+  let idea = document.getElementById("idea").value;
+
+  document.getElementById("output").innerHTML = `
+    <p><b>Ebook:</b> ${idea} Guide</p>
+    <p><b>Course:</b> ${idea} Masterclass</p>
+    <p><b>Newsletter:</b> ${idea} Weekly</p>
+    <p><b>Videos:</b> 5 videos on ${idea}</p>
+    <p><b>AI Tool:</b> ${idea} assistant</p>
+  `;
+}
+</script>
+
+</body>
+</html>
