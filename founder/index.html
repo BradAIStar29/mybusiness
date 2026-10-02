@@ -5,7 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Founder — BMAIProductions</title>
   <meta name="description" content="The professional story behind BMAIProductions — AI-powered digital assets, systems, and content engines." />
+
+  <meta property="og:title" content="Founder — BMAIProductions" />
+  <meta property="og:description" content="The professional story behind BMAIProductions — AI-powered digital assets, systems, and content engines." />
+  <meta property="og:type" content="website" />
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230D1B2A'/%3E%3Ctext x='32' y='45' font-family='Georgia' font-size='40' font-weight='bold' fill='%23C9A84C' text-anchor='middle'%3EB%3C/text%3E%3C/svg%3E" />
+  <link rel="canonical" href="https://bmai-founder.pages.dev/" />
+
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: '#0D1B2A',
+            gold: '#C9A84C',
+            midgray: '#444444',
+            lightgray: '#888888',
+            cream: '#F7F3EC',
+          },
+          fontFamily: {
+            serif: ['Georgia', 'serif'],
+            sans: ['Inter', 'Arial', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
 </head>
 
 <body class="bg-white text-black font-sans">
@@ -13,44 +41,126 @@
 <!-- NAV -->
 <nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur border-b border-gray-200">
   <div class="max-w-5xl mx-auto px-6 py-3 flex items-center justify-between">
-    <a href="#top" class="font-bold text-lg hover:text-blue-600 transition">BMAIProductions</a>
+    <a href="#top" class="flex items-center gap-2 group">
+      <span class="w-8 h-8 rounded-lg bg-navy text-gold flex items-center justify-center font-serif font-bold">B</span>
+      <span class="font-serif font-bold text-navy group-hover:text-gold transition">BMAIProductions</span>
+    </a>
     <div class="flex items-center gap-6 text-sm">
+      <a href="#what-i-do" class="text-gray-600 hover:text-blue-500 transition">What I Do</a>
       <a href="https://bmaiproductions.pages.dev" class="text-gray-600 hover:text-blue-500 transition">Main Site ↗</a>
       <a href="https://bmai-nova.pages.dev" class="text-gray-600 hover:text-blue-500 transition">NOVA ↗</a>
     </div>
   </div>
 </nav>
 
-<section id="top" class="min-h-screen flex items-center justify-center text-center px-6">
-  <div class="max-w-xl">
+<!-- HERO -->
+<section id="top" class="min-h-screen flex items-center justify-center text-center px-6 bg-gradient-to-b from-white to-gray-50">
+  <div class="max-w-2xl">
     <p class="text-sm uppercase tracking-widest text-gray-400 font-semibold mb-4">The Founder</p>
-    <h1 class="text-5xl font-bold mb-6">Hi, I'm the Founder</h1>
+    <h1 class="text-5xl font-serif font-bold mb-6 text-navy">Hi, I'm the Founder</h1>
 
-    <p class="text-lg text-gray-600 mb-10">
+    <p class="text-lg text-gray-600 mb-10 leading-relaxed">
       I build AI-powered digital assets, systems, and content engines
-      through BMAIProductions.
+      through BMAIProductions — turning ideas into products that keep working
+      long after they're published.
     </p>
 
-    <div class="space-y-4">
-      <a href="https://bmaiproductions.pages.dev" class="block text-blue-500 hover:text-blue-700 transition font-semibold">
-        → Main Site
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+      <a href="https://bmaiproductions.pages.dev" class="bg-navy text-white font-semibold px-8 py-4 rounded-lg hover:bg-gold hover:text-navy transition">
+        Explore the Lab
       </a>
-
-      <a href="https://bmai-nova.pages.dev" class="block text-blue-500 hover:text-blue-700 transition font-semibold">
-        → NOVA
+      <a href="https://bmai-nova.pages.dev" class="text-navy font-semibold hover:text-blue-500 transition">
+        Meet NOVA →
       </a>
     </div>
   </div>
 </section>
 
-<footer class="border-t border-gray-200 py-8 text-center text-gray-500 text-sm px-6">
-  <p>BMAIProductions © 2026</p>
-  <div class="mt-3 flex flex-col sm:flex-row items-center justify-center gap-4">
-    <a href="https://bmaiproductions.pages.dev" class="hover:text-blue-500 transition">Main Site</a>
-    <a href="https://bmai-nova.pages.dev" class="hover:text-blue-500 transition">NOVA</a>
-    <a href="#top" class="hover:text-blue-500 transition">Back to Top</a>
+<!-- WHAT I DO -->
+<section id="what-i-do" class="py-20 px-6 bg-white">
+  <div class="max-w-5xl mx-auto">
+    <div class="text-center mb-14">
+      <h2 class="text-4xl font-serif text-navy mb-4">What I Do</h2>
+      <p class="text-gray-500 text-lg">Three disciplines, one operating system for building digital assets.</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6 text-left">
+      <div class="bg-cream rounded-xl border border-gray-200 p-8 shadow-sm">
+        <h3 class="text-xl font-serif text-navy mb-3">📚 Digital Products</h3>
+        <p class="text-gray-600 leading-relaxed">
+          Ebooks, audiobooks, guides, courses, and template packs — packaged
+          knowledge built to sell and scale.
+        </p>
+      </div>
+
+      <div class="bg-cream rounded-xl border border-gray-200 p-8 shadow-sm">
+        <h3 class="text-xl font-serif text-navy mb-3">🤖 AI Systems</h3>
+        <p class="text-gray-600 leading-relaxed">
+          Agents, chatbots, and automation pipelines that research, plan, and
+          generate — so the work compounds instead of repeating.
+        </p>
+      </div>
+
+      <div class="bg-cream rounded-xl border border-gray-200 p-8 shadow-sm">
+        <h3 class="text-xl font-serif text-navy mb-3">🎥 Content Engines</h3>
+        <p class="text-gray-600 leading-relaxed">
+          YouTube, newsletters, and social systems, including NOVA — the AI
+          avatar that promotes and teaches what the lab builds.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MISSION -->
+<section class="py-20 px-6 bg-navy text-center">
+  <div class="max-w-3xl mx-auto">
+    <p class="text-gold text-sm uppercase tracking-widest font-semibold mb-4">The Mission</p>
+    <h2 class="text-3xl md:text-4xl font-serif text-cream mb-6 leading-snug">
+      Experiment across formats. Keep what scales. Retire what doesn't.
+    </h2>
+    <p class="text-cream/60 leading-relaxed">
+      Instead of betting on one product too early, BMAIProductions tests
+      ebooks against courses, newsletters against videos, agents against
+      audiences — and doubles down only on what proves itself. Every
+      experiment gets built fast, launched publicly, and improved with
+      real feedback.
+    </p>
+  </div>
+</section>
+
+<!-- CONNECT -->
+<section class="py-20 px-6 bg-white">
+  <div class="max-w-3xl mx-auto text-center">
+    <h2 class="text-4xl font-serif text-navy mb-6">Explore the Ecosystem</h2>
+    <p class="text-gray-500 text-lg mb-12">Three sites, one connected operation.</p>
+
+    <div class="grid md:grid-cols-2 gap-6 text-left">
+      <a href="https://bmaiproductions.pages.dev" class="bg-cream rounded-xl border border-gray-200 p-8 shadow hover:shadow-lg transition group">
+        <h3 class="text-2xl font-serif text-navy mb-2 group-hover:text-blue-500 transition">BMAIProductions ↗</h3>
+        <p class="text-gray-600">The main digital asset lab — projects, the AI blueprint generator, and the full portfolio.</p>
+      </a>
+      <a href="https://bmai-nova.pages.dev" class="bg-cream rounded-xl border border-gray-200 p-8 shadow hover:shadow-lg transition group">
+        <h3 class="text-2xl font-serif text-navy mb-2 group-hover:text-blue-500 transition">NOVA ↗</h3>
+        <p class="text-gray-600">The AI Asset Builder — promoting content, teaching ideas, and growing the audience.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-navy text-cream/70 py-10 text-center px-6">
+  <p>BMAIProductions © <span id="year">2026</span></p>
+  <div class="mt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+    <a href="https://bmaiproductions.pages.dev" class="hover:text-gold transition">Main Site</a>
+    <a href="https://bmai-nova.pages.dev" class="hover:text-gold transition">NOVA</a>
+    <a href="#top" class="hover:text-gold transition">Back to Top</a>
   </div>
 </footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
 
 </body>
 </html>

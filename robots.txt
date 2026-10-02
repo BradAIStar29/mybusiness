@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://bmaiproductions.pages.dev/sitemap.xml
