@@ -225,7 +225,107 @@ document.getElementById("joinForm").addEventListener("submit", async (e) => {
     btn.disabled = false;
   }
 });
+
+    // ---------- AI Consultant widget (Cloudflare Agents SDK) ----------
+    let chatSession = localStorage.getItem("nova_agent_session");
+    if (!chatSession) {
+      chatSession = (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random());
+      localStorage.setItem("nova_agent_session", chatSession);
+    }
+    const chatPanel = document.getElementById("chatPanel");
+    const chatMessages = document.getElementById("chatMessages");
+    const chatForm = document.getElementById("chatForm");
+    const chatInput = document.getElementById("chatInput");
+    const chatSend = document.getElementById("chatSend");
+    const chatTyping = document.getElementById("chatTyping");
+    const chatToggle = document.getElementById("chatToggle");
+
+    function chatBubble(role, text) {
+      const wrap = document.createElement("div");
+      wrap.className = role === "user"
+        ? "bg-green-400 text-black rounded-xl rounded-br-none px-4 py-2.5 ml-auto w-fit max-w-[85%] text-sm"
+        : "bg-white/10 text-white rounded-xl rounded-bl-none px-4 py-2.5 mr-auto w-fit max-w-[85%] text-sm";
+      wrap.innerText = text;
+      chatMessages.appendChild(wrap);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    chatToggle.addEventListener("click", () => {
+      const open = chatPanel.classList.toggle("open");
+      document.getElementById("chatIconOpen").classList.toggle("hidden", open);
+      document.getElementById("chatIconClose").classList.toggle("hidden", !open);
+      if (open && !chatMessages.children.length) {
+        chatBubble("assistant", "Hey! I'm the NOVA Asset Consultant. Tell me an idea, niche, or skill you have — I'll suggest digital assets you could build from it and how to monetize them.");
+      }
+      if (open) setTimeout(() => chatInput.focus(), 250);
+    });
+
+    chatForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const msg = chatInput.value.trim();
+      if (!msg || chatSend.disabled) return;
+      chatInput.value = "";
+      chatBubble("user", msg);
+      chatTyping.classList.remove("hidden");
+      chatSend.disabled = true;
+      try {
+        const res = await fetch(`${API_BASE}/agents/bmai-consultant-agent/${chatSession}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: msg })
+        });
+        const data = await res.json();
+        if (data.reply) chatBubble("assistant", data.reply);
+        else throw new Error(data.error || "failed");
+      } catch (err) {
+        chatBubble("assistant", "I'm offline for a moment — try again shortly.");
+      } finally {
+        chatTyping.classList.add("hidden");
+        chatSend.disabled = false;
+        chatInput.focus();
+      }
+    });
+
 </script>
 
+
+  <!-- AI CONSULTANT WIDGET (NOVA theme) -->
+  <button id="chatToggle" aria-label="Open AI consultant chat"
+    class="fixed bottom-6 left-6 z-50 w-14 h-14 rounded-full bg-green-400 text-black shadow-lg hover:opacity-90 transition flex items-center justify-center">
+    <svg id="chatIconOpen" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.9 9.9 0 01-4.255-.949L3 20l1.395-3.72C3.306 15.202 3 13.65 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+    <svg id="chatIconClose" class="w-6 h-6 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+  </button>
+
+  <div id="chatPanel" class="fixed bottom-24 left-6 z-50 w-[min(380px,calc(100vw-2rem))] h-[520px] max-h-[70vh] bg-[#050505] rounded-2xl border border-white/10 shadow-2xl flex flex-col overflow-hidden origin-bottom-left scale-95 opacity-0 pointer-events-none transition-all duration-200">
+    <div class="px-4 py-3 border-b border-white/10 flex items-center justify-between shrink-0">
+      <div>
+        <p class="text-white font-semibold">NOVA Asset Consultant</p>
+        <p class="text-[10px] uppercase tracking-widest text-green-400">✦ Live AI · remembers your chat</p>
+      </div>
+    </div>
+    <div id="chatMessages" class="flex-1 overflow-y-auto px-4 py-3 space-y-3"></div>
+    <div id="chatTyping" class="hidden px-4 pb-1">
+      <div class="bg-white/10 text-white/70 rounded-xl rounded-bl-none px-4 py-2 mr-auto w-fit flex gap-1 items-center">
+        <span class="chat-dot w-1.5 h-1.5 rounded-full bg-green-400 inline-block"></span>
+        <span class="chat-dot w-1.5 h-1.5 rounded-full bg-green-400 inline-block"></span>
+        <span class="chat-dot w-1.5 h-1.5 rounded-full bg-green-400 inline-block"></span>
+      </div>
+    </div>
+    <form id="chatForm" class="border-t border-white/10 p-3 flex gap-2 shrink-0">
+      <input id="chatInput" type="text" autocomplete="off"
+        placeholder="Ask about your idea..."
+        class="flex-1 bg-white/10 text-white placeholder-white/40 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-1 focus:ring-green-400 transition" />
+      <button id="chatSend" type="submit" aria-label="Send"
+        class="bg-green-400 text-black font-semibold rounded-lg px-4 text-sm hover:opacity-90 transition disabled:opacity-50 disabled:cursor-wait">Send</button>
+    </form>
+  </div>
+
+  <style>
+    .chat-dot { animation: chatBounce 1.2s infinite; }
+    .chat-dot:nth-child(2) { animation-delay: 0.15s; }
+    .chat-dot:nth-child(3) { animation-delay: 0.3s; }
+    @keyframes chatBounce { 0%, 60%, 100% { transform: translateY(0); opacity: 0.4; } 30% { transform: translateY(-4px); opacity: 1; } }
+    #chatPanel.open { transform: scale(1); opacity: 1; pointer-events: auto; }
+  </style>
 </body>
 </html>
