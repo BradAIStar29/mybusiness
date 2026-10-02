@@ -149,6 +149,23 @@
 </section>
 
 <!-- FOOTER -->
+<!-- FOLLOW THE BUILD -->
+<section class="py-20 px-6 bg-gray-50">
+  <div class="max-w-xl mx-auto text-center">
+    <h2 class="text-4xl font-serif text-navy mb-4">Follow the Build</h2>
+    <p class="text-gray-600 mb-8">Get new assets, experiments, and lessons from the lab — straight to your inbox.</p>
+    <form id="followForm" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto" novalidate>
+      <label for="followEmail" class="sr-only">Email</label>
+      <input id="followEmail" type="email" required
+        placeholder="you@example.com"
+        class="flex-1 px-4 py-3 rounded-lg border border-gray-300 text-navy placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-gold transition" />
+      <button id="followBtn" type="submit"
+        class="bg-navy text-white font-semibold px-6 py-3 rounded-lg hover:bg-gold hover:text-navy transition disabled:opacity-60 disabled:cursor-wait">Subscribe</button>
+    </form>
+    <p id="followStatus" class="text-sm mt-4 min-h-[1.5rem] text-gray-500"></p>
+  </div>
+</section>
+
 <footer class="bg-navy text-cream/70 py-10 text-center px-6">
   <p>BMAIProductions © <span id="year">2026</span></p>
   <div class="mt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -160,6 +177,39 @@
 
 <script>
   document.getElementById("year").textContent = new Date().getFullYear();
+
+
+    // ---------- Follow the Build (Lead Vault) ----------
+    document.getElementById("followForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const input = document.getElementById("followEmail");
+      const btn = document.getElementById("followBtn");
+      const statusEl = document.getElementById("followStatus");
+      const email = input.value.trim();
+      if (!email || btn.disabled) return;
+      btn.disabled = true;
+      statusEl.innerText = "";
+      try {
+        const res = await fetch(`${API_BASE}/api/collect-email`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, source: "Founder Site — Follow the Build" })
+        });
+        const data = await res.json();
+        if (res.ok && data.success) {
+          statusEl.className = "text-sm mt-4 min-h-[1.5rem] text-green-600 font-semibold";
+          statusEl.innerText = "You're in! Welcome to the build.";
+          input.value = "";
+        } else {
+          throw new Error(data.error || "Failed");
+        }
+      } catch (err) {
+        statusEl.className = "text-sm mt-4 min-h-[1.5rem] text-red-600 font-semibold";
+        statusEl.innerText = "Something went wrong — please try again.";
+      } finally {
+        btn.disabled = false;
+      }
+    });
 
     // ---------- AI Consultant widget (Cloudflare Agents SDK) ----------
     const API_BASE = "https://synapse-sync-api.bradleymaticanprofessionalservices.workers.dev";
@@ -208,7 +258,7 @@
         const res = await fetch(`${API_BASE}/agents/bmai-consultant-agent/${chatSession}`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message: msg })
+          body: JSON.stringify({ message: msg, site: "founder" })
         });
         const data = await res.json();
         if (data.reply) chatBubble("assistant", data.reply);

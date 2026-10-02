@@ -100,14 +100,40 @@
 </section>
 
 <!-- CONTENT -->
-<section class="py-20 text-center px-6">
-  <h2 class="text-4xl mb-8">Latest Builds</h2>
-
-  <div class="space-y-3 text-gray-400 max-w-md mx-auto">
-    <p>📚 Built an ebook</p>
-    <p>🎓 Designed a course</p>
-    <p>📰 Created newsletter idea</p>
-    <p>🎥 Generated 5 videos</p>
+<section class="py-20 px-6">
+  <h2 class="text-4xl mb-2 text-center">What You Can Build</h2>
+  <p class="text-gray-400 text-center mb-10 max-w-lg mx-auto">Every idea maps to at least six sellable formats. Here's what the generator drafts for you.</p>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto text-left">
+    <div class="bg-white/5 border border-white/10 rounded-xl p-6 hover:border-green-400/50 transition">
+      <p class="text-2xl mb-3">📚</p>
+      <h3 class="font-bold text-white mb-2">Ebook / Guide</h3>
+      <p class="text-gray-400 text-sm">A titled, outlined lead product built straight from your idea — with a hook and chapters that write themselves.</p>
+    </div>
+    <div class="bg-white/5 border border-white/10 rounded-xl p-6 hover:border-green-400/50 transition">
+      <p class="text-2xl mb-3">🎓</p>
+      <h3 class="font-bold text-white mb-2">Course</h3>
+      <p class="text-gray-400 text-sm">A module-by-module curriculum with lesson topics and a natural price ladder from free to premium.</p>
+    </div>
+    <div class="bg-white/5 border border-white/10 rounded-xl p-6 hover:border-green-400/50 transition">
+      <p class="text-2xl mb-3">📰</p>
+      <h3 class="font-bold text-white mb-2">Newsletter</h3>
+      <p class="text-gray-400 text-sm">A recurring issue concept with a name, audience promise, and five ready-to-write topic angles.</p>
+    </div>
+    <div class="bg-white/5 border border-white/10 rounded-xl p-6 hover:border-green-400/50 transition">
+      <p class="text-2xl mb-3">🎥</p>
+      <h3 class="font-bold text-white mb-2">Video Series</h3>
+      <p class="text-gray-400 text-sm">A short-form video plan — titles and hooks optimized to pull your niche toward the longer assets.</p>
+    </div>
+    <div class="bg-white/5 border border-white/10 rounded-xl p-6 hover:border-green-400/50 transition">
+      <p class="text-2xl mb-3">🤖</p>
+      <h3 class="font-bold text-white mb-2">AI Agent</h3>
+      <p class="text-gray-400 text-sm">A task-specific assistant or tool idea that delivers real value on autopilot — like this chat.</p>
+    </div>
+    <div class="bg-green-400/10 border border-green-400/40 rounded-xl p-6 hover:border-green-400 transition">
+      <p class="text-2xl mb-3">💰</p>
+      <h3 class="font-bold text-white mb-2">Monetization Path</h3>
+      <p class="text-gray-400 text-sm">Free lead magnet first, paid product second — a plan for turning attention into revenue from day one.</p>
+    </div>
   </div>
 </section>
 
@@ -340,7 +366,7 @@ document.getElementById("joinForm").addEventListener("submit", async (e) => {
         const res = await fetch(`${API_BASE}/agents/bmai-consultant-agent/${chatSession}`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message: msg })
+          body: JSON.stringify({ message: msg, site: "nova" })
         });
         const data = await res.json();
         if (data.reply) chatBubble("assistant", data.reply);

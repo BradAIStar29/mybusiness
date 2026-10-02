@@ -888,6 +888,34 @@
       }
     }
 
+    // Streaming blueprint generation — fields fill live as the AI drafts
+    const BP_KEYS = [
+      ["ebookResult", "ebook"],
+      ["courseResult", "course"],
+      ["newsletterResult", "newsletter"],
+      ["videoResult", "video"],
+      ["agentResult", "agent"],
+      ["moneyResult", "monetization"],
+      ["planResult", "plan"]
+    ];
+
+    function fillFromPartial(raw) {
+      let text = raw.replace(/```(json)?/gi, "");
+      const first = text.indexOf("{");
+      const last = text.lastIndexOf("}");
+      if (first !== -1) text = text.slice(first, last > first ? last + 1 : undefined);
+      const got = {};
+      for (const [id, key] of BP_KEYS) {
+        const re = new RegExp('"' + key + '"\\s*:\\s*"((?:[^"\\\\]|\\\\.)*)');
+        const m = text.match(re);
+        if (m) {
+          got[key] = m[1].replace(/\\n/g, "\n").replace(/\\"/g, '"').replace(/\\\\/g, "\\");
+          document.getElementById(id).innerText = got[key];
+        }
+      }
+      return got;
+    }
+
     async function generateAssetIdeas() {
       const idea = document.getElementById("ideaInput").value.trim();
       const btn = document.getElementById("generateBtn");
@@ -897,8 +925,55 @@
       if (btn.disabled) return;
 
       btn.disabled = true;
-      status.innerText = "Generating your blueprint...";
 
+      const results = document.getElementById("results");
+      const badge = document.getElementById("aiBadge");
+      badge.classList.add("hidden"); badge.classList.remove("inline-flex");
+      for (const [id] of BP_KEYS) document.getElementById(id).innerText = "…";
+      results.classList.remove("hidden");
+      results.scrollIntoView({ behavior: "smooth", block: "start" });
+
+      // 1) Live streaming — the blueprint builds field by field
+      try {
+        const res = await fetch(`${API_BASE}/api/ai/blueprint-stream`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ idea })
+        });
+        if (res.ok && res.body && res.body.getReader) {
+          status.innerText = "✦ Drafting your blueprint live…";
+          const reader = res.body.getReader();
+          const decoder = new TextDecoder();
+          let buf = "", full = "", got = {};
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+            buf += decoder.decode(value, { stream: true });
+            const lines = buf.split("\n");
+            buf = lines.pop();
+            for (const line of lines) {
+              const t = line.trim();
+              if (!t.startsWith("data:")) continue;
+              const payload = t.slice(5).trim();
+              if (payload === "[DONE]") continue;
+              try {
+                const d = JSON.parse(payload);
+                full += d.response || d.text || "";
+                got = fillFromPartial(full);
+              } catch (e) { /* partial chunk — wait for more */ }
+            }
+          }
+          if (got.ebook && got.course) {
+            badge.classList.remove("hidden"); badge.classList.add("inline-flex");
+            status.innerText = "";
+            btn.disabled = false;
+            return;
+          }
+        }
+      } catch (e) { /* fall through */ }
+
+      // 2) Non-streaming fallback
+      status.innerText = "Generating your blueprint...";
       let bp = null;
       try {
         const res = await fetch(`${API_BASE}/api/ai/blueprint`, {
@@ -917,6 +992,7 @@
       btn.disabled = false;
       document.getElementById("results").scrollIntoView({ behavior: "smooth", block: "start" });
     }
+
 
     // ---------- Email collection (waitlist + contact) ----------
     async function submitEmail({ email, firstName, source, statusEl, btn }) {
@@ -1029,7 +1105,7 @@
         const res = await fetch(`${API_BASE}/agents/bmai-consultant-agent/${chatSession}`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message: msg })
+          body: JSON.stringify({ message: msg, site: "main" })
         });
         const data = await res.json();
         if (data.reply) chatBubble("assistant", data.reply);
