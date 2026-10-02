@@ -153,12 +153,10 @@ function fillFromPartial(raw) {
   if (first !== -1) text = text.slice(first, last > first ? last + 1 : undefined);
   const got = {};
   for (const [id, key] of GEN_KEYS) {
-    const m = text.match(new RegExp('"\\"' + key + '\\\"\\s*:\\s*\\\"((?:[^\\"\\\\]|\\\\.)*)', ""));
+    const re = new RegExp('"' + key + '"\\s*:\\s*"((?:[^"\\\\]|\\\\.)*)');
+    const m = text.match(re);
     if (m) {
-      got[key] = m[1]
-        .replace(/\\\\n/g, "\n")
-        .replace(/\\\\"/g, '"')
-        .replace(/\\\\\\\\/g, "\\");
+      got[key] = m[1].replace(/\\n/g, "\n").replace(/\\"/g, '"').replace(/\\\\/g, "\\");
       document.getElementById(id).innerText = got[key];
     }
   }
